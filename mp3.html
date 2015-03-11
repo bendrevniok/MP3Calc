@@ -1,0 +1,103 @@
+<!doctype html>
+<html>
+
+<head>
+    <script type="application/javascript" src="mp3.js"></script>
+    <link rel="stylesheet" type="text/css" href="mp3.css"></style>
+    <meta charset="UTF-8">
+    <title>MP3Calc</title>
+</head>
+
+<body>
+    <h3>MultiPrep Parallel Polishing Calculator [MP3Calc]</h3>
+    <table>
+        <tr>
+            <th>
+                <label>Length:</label>
+            </th>
+            <td>
+                <input type="input" id="txtLength" runat="server" />
+            </td>
+        </tr>
+
+        <tr>
+            <th>
+                <label>Width:</label>
+            </th>
+            <td>
+                <input type="input" id="txtWidth" runat="server" />
+            </td>
+        </tr>
+
+        <tr>
+            <th>
+                <label>Z<sub>1</sub>:</label>
+            </th>
+            <td>
+                <input type="input" id="txtZOne" runat="server" />
+            </td>
+        </tr>
+        <tr>
+            <th>
+                <label>Z<sub>2</sub>:</label>
+            </th>
+            <td>
+                <input type="input" id="txtZTwo" runat="server" />
+            </td>
+        </tr>
+        <tr>
+            <th>
+                <label>Z<sub>3</sub>:</label>
+            </th>
+            <td>
+                <input type="input" id="txtZThree" runat="server" />
+            </td>
+        </tr>
+        <tr >
+            <td></td>
+            <td >
+            <button id="btnSubmit" runat="server" onclick="calculateResult()">Calculate</button>
+                </td>
+        </tr>
+        <tr>
+            <th>
+                Angle in "x" direction, &theta; (degrees):
+            </th>
+            <td>
+                <label id="lblThetaResult"></label>
+            </td>
+        </tr>
+        <tr>
+            <th>
+                Number of turns for &theta; (divisions):
+            </th>
+            <td>
+                <label id="lblTurnsThetaResult"></label>
+            </td>
+        </tr>
+        <tr>
+            <th>
+                Angle in "y" direction, &phi; (degrees):
+            </th>
+            <td>
+                <label id="lblPhiResult"></label>
+            </td>
+        </tr>
+
+        <tr>
+            <th>
+                Number of turns for &phi; (divisions):
+            </th>
+            <td>
+                <label id="lblTurnsPhiResult"></label>
+            </td>
+        </tr>
+
+    </table>
+
+
+</body>
+
+</html>
+    
+
