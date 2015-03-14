@@ -3,101 +3,112 @@
 
 <head>
     <script type="application/javascript" src="mp3.js"></script>
-    <link rel="stylesheet" type="text/css" href="mp3.css"></style>
+    <link rel="stylesheet" type="text/css" href="mp3.css">
     <meta charset="UTF-8">
     <title>MP3Calc</title>
 </head>
 
 <body>
-    <h3>MultiPrep Parallel Polishing Calculator [MP3Calc]</h3>
-    <table>
-        <tr>
-            <th>
-                <label>Length:</label>
-            </th>
-            <td>
-                <input type="input" id="txtLength" runat="server" />
-            </td>
-        </tr>
+    <div id="wrapper">
+        <div id="banner">
+            <div id="header">
+                <h1>MultiPrep Parallel Polishing Calculator [MP3Calc]</h1>
+            </div>
+            <div id="logo">
+                <img src="chipworks_logo.png" alt="The Chipworks logo" width="100" />
+            </div>
+        </div>
+        <div id="body">
+            <div id="body-input">
+                <form name="mp3Form">
+                    <table>
+                        <tr>
+                            <th class="body-input-header">
+                                <label>Length:</label>
+                            </th>
+                            <td>
+                                <input type="text" id="txtLength" name="Length" maxlength="20" required />
+                            </td>
+                        </tr>
 
-        <tr>
-            <th>
-                <label>Width:</label>
-            </th>
-            <td>
-                <input type="input" id="txtWidth" runat="server" />
-            </td>
-        </tr>
+                        <tr>
+                            <th class="body-input-header">
+                                <label>Width:</label>
+                            </th>
+                            <td>
+                                <input type="input" id="txtWidth" name="Width" required />
+                            </td>
+                        </tr>
 
-        <tr>
-            <th>
-                <label>Z<sub>1</sub>:</label>
-            </th>
-            <td>
-                <input type="input" id="txtZOne" runat="server" />
-            </td>
-        </tr>
-        <tr>
-            <th>
-                <label>Z<sub>2</sub>:</label>
-            </th>
-            <td>
-                <input type="input" id="txtZTwo" runat="server" />
-            </td>
-        </tr>
-        <tr>
-            <th>
-                <label>Z<sub>3</sub>:</label>
-            </th>
-            <td>
-                <input type="input" id="txtZThree" runat="server" />
-            </td>
-        </tr>
-        <tr >
-            <td></td>
-            <td >
-            <button id="btnSubmit" runat="server" onclick="calculateResult()">Calculate</button>
-                </td>
-        </tr>
-        <tr>
-            <th>
-                Angle in "x" direction, &theta; (degrees):
-            </th>
-            <td>
-                <label id="lblThetaResult"></label>
-            </td>
-        </tr>
-        <tr>
-            <th>
-                Number of turns for &theta; (divisions):
-            </th>
-            <td>
-                <label id="lblTurnsThetaResult"></label>
-            </td>
-        </tr>
-        <tr>
-            <th>
-                Angle in "y" direction, &phi; (degrees):
-            </th>
-            <td>
-                <label id="lblPhiResult"></label>
-            </td>
-        </tr>
-
-        <tr>
-            <th>
-                Number of turns for &phi; (divisions):
-            </th>
-            <td>
-                <label id="lblTurnsPhiResult"></label>
-            </td>
-        </tr>
-
-    </table>
-
-
+                        <tr>
+                            <th class="body-input-header">
+                                <label>Z<sub>1</sub>:</label>
+                            </th>
+                            <td>
+                                <input type="input" id="txtZOne" name="Z1" required />
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="body-input-header">
+                                <label>Z<sub>2</sub>:</label>
+                            </th>
+                            <td>
+                                <input type="input" id="txtZTwo" name="Z2" required />
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="body-input-header">
+                                <label>Z<sub>3</sub>:</label>
+                            </th>
+                            <td>
+                                <input type="input" id="txtZThree" name="Z3" required/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>
+                                <input class="btn" id="btnSubmit" type="button" value="Calculate" onclick="calculateResult()" />
+                            </td>
+                        </tr>
+                    </table>
+                </form>
+            </div>
+            <div id="body-output">
+                <table>
+                    <tr>
+                        <th>
+                            Angle in "x" direction, &theta; (degrees)
+                        </th>
+                        <th>
+                            Number of turns for &theta; (divisions)
+                        </th>
+                        <th>
+                            Angle in "y" direction, &phi; (degrees)
+                        </th>
+                        <th>
+                            Number of turns for &phi; (divisions)
+                        </th>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label id="lblThetaResult"></label>
+                        </td>
+                        <td>
+                            <label id="lblTurnsThetaResult"></label>
+                        </td>
+                        <td>
+                            <label id="lblPhiResult"></label>
+                        </td>
+                        <td>
+                            <label id="lblTurnsPhiResult"></label>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
 </body>
 
 </html>
-    
+
 
