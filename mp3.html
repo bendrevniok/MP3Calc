@@ -27,7 +27,7 @@
                                 <label>Length:</label>
                             </th>
                             <td>
-                                <input type="text" id="txtLength" name="Length" maxlength="20" required />
+                                <input type="text" id="txtLength" name="Length" maxlength="20"/>
                             </td>
                         </tr>
 
@@ -36,7 +36,7 @@
                                 <label>Width:</label>
                             </th>
                             <td>
-                                <input type="input" id="txtWidth" name="Width" required />
+                                <input type="input" id="txtWidth" name="Width" maxlength="20" />
                             </td>
                         </tr>
 
@@ -45,7 +45,7 @@
                                 <label>Z<sub>1</sub>:</label>
                             </th>
                             <td>
-                                <input type="input" id="txtZOne" name="Z1" required />
+                                <input type="input" id="txtZOne" name="Z1" maxlength="20" />
                             </td>
                         </tr>
                         <tr>
@@ -53,7 +53,7 @@
                                 <label>Z<sub>2</sub>:</label>
                             </th>
                             <td>
-                                <input type="input" id="txtZTwo" name="Z2" required />
+                                <input type="input" id="txtZTwo" name="Z2" maxlength="20" />
                             </td>
                         </tr>
                         <tr>
@@ -72,37 +72,44 @@
                         </tr>
                     </table>
                 </form>
+                <div id="body-saved-input">
+                    <p id="savedZOnes"></p>
+                    <p id="savedZTwos"></p>
+                    <p id="savedZThrees"></p>
+                </div>
             </div>
             <div id="body-output">
                 <table>
                     <tr>
-                        <th>
-                            Angle in "x" direction, &theta; (degrees)
+                        <th colspan="2">
+                            Rear right turns
                         </th>
-                        <th>
-                            Number of turns for &theta; (divisions)
+                        <th colspan="2">
+                            Front left turns
                         </th>
-                        <th>
-                            Angle in "y" direction, &phi; (degrees)
-                        </th>
-                        <th>
-                            Number of turns for &phi; (divisions)
-                        </th>
+                    </tr><tr>
+                        <td class="turnsData" colspan="2">
+                            <label  id="lblRearRightTurnsResult"></label>
+                        </td>
+                        <td class="turnsData" colspan="2">
+                            <label  id="lblFrontLeftTurnsResult"></label>
+                        </td>
                     </tr>
                     <tr>
+                        <th>
+                            Roll angle:
+                        </th>
                         <td>
-                            <label id="lblThetaResult"></label>
+                            <label id="lblRollAngleResult"></label>
                         </td>
+                        <th>
+                            Pitch angle:
+                        </th>
                         <td>
-                            <label id="lblTurnsThetaResult"></label>
+                            <label id="lblPitchAngleResult"></label>
                         </td>
-                        <td>
-                            <label id="lblPhiResult"></label>
-                        </td>
-                        <td>
-                            <label id="lblTurnsPhiResult"></label>
-                        </td>
-                    </tr>
+                      </tr>
+                   
                 </table>
             </div>
         </div>
@@ -110,5 +117,3 @@
 </body>
 
 </html>
-
-
