@@ -24,22 +24,17 @@ body {
     float: right;
 }
 #body-input {
+    float: left;
     width: 30%;
-    margin-bottom: 30px;
+    margin-right: 20px;
 }
 #body-input th {
     text-align: right
 }
 #body-output {
-    width: 80%;
-}
-#body-output th {
-    text-align: left;
-    padding-right: 15px;
-}
-#body-output td {
-    text-align: right;
-    padding-right: 15px;
+    float: left;
+    overflow: auto;
+    width: 60%;
 }
 .btn {
     background-color: crimson;
@@ -52,6 +47,7 @@ body {
     padding: 5px;
     text-decoration: none;
     border: none;
+    margin-top: 10px;
 }
 .btn:hover {
     background-color: darkred;
@@ -59,4 +55,12 @@ body {
 }
 .btn:focus {
     outline: none;
+}
+.turnsHeader {
+    text-align: left
+}
+.turnsData {
+    text-align: center;
+    font-size: 1.4em;
+    padding: 5px;
 }
