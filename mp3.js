@@ -2,10 +2,9 @@ var errorMessage;
 var savedZOnes = [];
 var savedZTwos = [];
 var savedZThrees = [];
+var STEP_SIZE = 0.02;
 
-function calculateResult() {
-    //step size in degrees per division
-    var stepSize = 0.02;
+function submitData() {
     errorMessage = "";
     var length = validateInput("Length");
     var width = validateInput("Width");
@@ -17,40 +16,56 @@ function calculateResult() {
         savedZOnes.push(zOne);
         savedZTwos.push(zTwo);
         savedZThrees.push(zThree)
-
-        var rollAngleResult = Math.atan((zTwo - zOne) / width) * (180.0 / Math.PI);
-        document.getElementById("lblRollAngleResult").innerHTML = rollAngleResult.toFixed(2);
-
-        var pitchAngleResult = Math.atan((zThree - zOne) / length) * (180.0 / Math.PI);
-        document.getElementById("lblPitchAngleResult").innerHTML = pitchAngleResult.toFixed(2);
-
-        var rearRightTurnsResult = rollAngleResult / stepSize;
-        if (rearRightTurnsResult > 0) {
-            document.getElementById("lblRearRightTurnsResult").innerHTML = rearRightTurnsResult.toFixed(1) + " CCW";
-        } else {
-            document.getElementById("lblRearRightTurnsResult").innerHTML = rearRightTurnsResult.toFixed(1) + " CW";
-        }
-        //rear right turns
-
-        var frontLeftTurnsResult = pitchAngleResult / stepSize;
-        if (frontLeftTurnsResult > 0) {
-            document.getElementById("lblFrontLeftTurnsResult").innerHTML = frontLeftTurnsResult.toFixed(1) + " CCW";
-        } else {
-            document.getElementById("lblFrontLeftTurnsResult").innerHTML = frontLeftTurnsResult.toFixed(1) + " CW";
-        }
-        //front left turns
-        
+        var rollAngleResult = calculateRollAngle(zOne, zTwo, width);
+        var pitchAngleResult = calculatePitchAngle(zOne, zThree, length);
+        displayTurnsResults(rollAngleResult, pitchAngleResult);
         displaySavedZValues();
-    } else {
+        
+        //document.getElementById("lblRollAngleResult").innerHTML = rollAngleResult.toFixed(2);
+        //document.getElementById("lblPitchAngleResult").innerHTML = pitchAngleResult.toFixed(2);
+        if (savedZOnes.length >= 2) {
+            displayDeltaZValues();
+        }
+    } else
         alert(errorMessage);
-    }
 }
 
-function displaySavedZValues(){
-    document.getElementById("savedZOnes").innerHTML="Previous Z1's: " + savedZOnes;
-    document.getElementById("savedZTwos").innerHTML="Previous Z2's: "+savedZTwos;
-    document.getElementById("savedZThrees").innerHTML="Previous Z3's: "+savedZThrees;
+function calculateRollAngle(zOne, zTwo, width) {
+    return Math.atan((zTwo - zOne) / width) * (180.0 / Math.PI);
 }
+
+function calculatePitchAngle(zOne, zThree, length) {
+    return Math.atan((zThree - zOne) / length) * (180.0 / Math.PI);
+}
+
+function displaySavedZValues() {
+    document.getElementById("savedZOnes").innerHTML = "Previous Z1's: " + savedZOnes;
+    document.getElementById("savedZTwos").innerHTML = "Previous Z2's: " + savedZTwos;
+    document.getElementById("savedZThrees").innerHTML = "Previous Z3's: " + savedZThrees;
+}
+
+function displayDeltaZValues() {
+    document.getElementById("deltaZOne").innerHTML = "Delta Z1: " + (savedZOnes[savedZOnes.length-1] - savedZOnes[savedZOnes.length - 2]);
+    document.getElementById("deltaZTwo").innerHTML = "Delta Z2: " + (savedZTwos[savedZTwos.length-1] - savedZTwos[savedZOnes.length - 2]);
+    document.getElementById("deltaZThree").innerHTML = "Delta Z3: " + (savedZThrees[savedZThrees.length-1] - savedZThrees[savedZOnes.length - 2]);
+}
+
+
+function displayTurnsResults(rollAngleResult, pitchAngleResult) {
+    document.getElementById("body-output").style.visibility = "visible";
+    var rearRightTurnsResult = rollAngleResult / STEP_SIZE;
+    if (rearRightTurnsResult > 0)
+        document.getElementById("lblRearRightTurnsResult").innerHTML = rearRightTurnsResult.toFixed(1) + " CCW";
+    else
+        document.getElementById("lblRearRightTurnsResult").innerHTML = rearRightTurnsResult.toFixed(1) + " CW";
+
+    var frontLeftTurnsResult = pitchAngleResult / STEP_SIZE;
+    if (frontLeftTurnsResult > 0)
+        document.getElementById("lblFrontLeftTurnsResult").innerHTML = frontLeftTurnsResult.toFixed(1) + " CCW";
+    else
+        document.getElementById("lblFrontLeftTurnsResult").innerHTML = frontLeftTurnsResult.toFixed(1) + " CW";
+}
+
 
 function validateInput(inputName) {
     var input = document.forms["mp3Form"][inputName].value;
@@ -61,21 +76,3 @@ function validateInput(inputName) {
     }
     return input;
 }
-
-/*
-Stuff to add: 
-if turns result are  postive specify they are counter clockwise
-else if they are negative specify they are clockwise
-
-keep the last five zone, two, and zthree in memory for reference
-store them in object
-
-delta zone, ztwo, zthree that would represent the difference between the last inputted zone and the current zone
-save values even if browser is closed with a session or cookies or whatever
-possibly write saved z values to a text file, csv file
-
-theta is roll angle, theta turns is rear right
-phi is pitch angle, phi turns is front left
-
-if zTwo and zOne positive number it should come out as positive result
-*/

@@ -29,12 +29,16 @@ body {
     margin-right: 20px;
 }
 #body-input th {
-    text-align: right
+    text-align: right;
 }
 #body-output {
-    float: left;
+    float: right;
     overflow: auto;
-    width: 60%;
+    width: 30%;
+    visibility: hidden;
+}
+#body-output th {
+    text-align: right;
 }
 .btn {
     background-color: crimson;

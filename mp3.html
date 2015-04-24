@@ -27,7 +27,7 @@
                                 <label>Length:</label>
                             </th>
                             <td>
-                                <input type="text" id="txtLength" name="Length" maxlength="20"/>
+                                <input type="text" id="txtLength" name="Length" maxlength="20" />
                             </td>
                         </tr>
 
@@ -67,7 +67,7 @@
                         <tr>
                             <td></td>
                             <td>
-                                <input class="btn" id="btnSubmit" type="button" value="Calculate" onclick="calculateResult()" />
+                                <input class="btn" id="btnSubmit" type="button" value="Calculate" onclick="submitData()" />
                             </td>
                         </tr>
                     </table>
@@ -76,6 +76,11 @@
                     <p id="savedZOnes"></p>
                     <p id="savedZTwos"></p>
                     <p id="savedZThrees"></p>
+                </div>
+                <div id="body-delta-input">
+                    <p id="deltaZOne"></p>
+                    <p id="deltaZTwo"></p>
+                    <p id="deltaZThree"></p>
                 </div>
             </div>
             <div id="body-output">
@@ -87,14 +92,16 @@
                         <th colspan="2">
                             Front left turns
                         </th>
-                    </tr><tr>
+                    </tr>
+                    <tr>
                         <td class="turnsData" colspan="2">
-                            <label  id="lblRearRightTurnsResult"></label>
+                            <label id="lblRearRightTurnsResult"></label>
                         </td>
                         <td class="turnsData" colspan="2">
-                            <label  id="lblFrontLeftTurnsResult"></label>
+                            <label id="lblFrontLeftTurnsResult"></label>
                         </td>
                     </tr>
+                    <!--
                     <tr>
                         <th>
                             Roll angle:
@@ -108,8 +115,9 @@
                         <td>
                             <label id="lblPitchAngleResult"></label>
                         </td>
-                      </tr>
-                   
+                    </tr>
+                    -->
+
                 </table>
             </div>
         </div>
