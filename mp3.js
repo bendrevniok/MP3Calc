@@ -4,6 +4,21 @@ var savedZTwos = [];
 var savedZThrees = [];
 var STEP_SIZE = 0.02;
 
+function checkData() {
+    if (typeof (Storage) !== "undefined") {
+        if (localStorage.getItem("zOnes") != null
+            && localStorage.getItem("zTwos") != null
+            && localStorage.getItem("zThrees") != null) {
+            savedZOnes= JSON.parse(localStorage["zOnes"]);
+            savedZTwos= JSON.parse(localStorage["zTwos"]);
+            savedZThrees= JSON.parse(localStorage["zThrees"]);
+            displaySavedZValues();
+        }
+    } else {
+        console.log("ERROR - Browser does not support local web storage.")
+    }
+}
+
 function submitData() {
     errorMessage = "";
     var length = validateInput("Length");
@@ -15,19 +30,25 @@ function submitData() {
     if (errorMessage == "") {
         savedZOnes.push(zOne);
         savedZTwos.push(zTwo);
-        savedZThrees.push(zThree)
+        savedZThrees.push(zThree);
         var rollAngleResult = calculateRollAngle(zOne, zTwo, width);
         var pitchAngleResult = calculatePitchAngle(zOne, zThree, length);
         displayTurnsResults(rollAngleResult, pitchAngleResult);
         displaySavedZValues();
-        
-        //document.getElementById("lblRollAngleResult").innerHTML = rollAngleResult.toFixed(2);
-        //document.getElementById("lblPitchAngleResult").innerHTML = pitchAngleResult.toFixed(2);
+        storeData(savedZOnes, savedZTwos, savedZThrees);
         if (savedZOnes.length >= 2) {
             displayDeltaZValues();
         }
-    } else
+    } else {
         alert(errorMessage);
+    }
+}
+
+function storeData(zOnes, zTwos, zThrees) {
+    localStorage["zOnes"] =  JSON.stringify(zOnes);
+    localStorage["zTwos"] = JSON.stringify(zTwos);
+    localStorage["zThrees"] = JSON.stringify(zThrees);
+
 }
 
 function calculateRollAngle(zOne, zTwo, width) {
@@ -39,34 +60,32 @@ function calculatePitchAngle(zOne, zThree, length) {
 }
 
 function displaySavedZValues() {
-    document.getElementById("savedZOnes").innerHTML = "Previous Z1's: " + savedZOnes;
-    document.getElementById("savedZTwos").innerHTML = "Previous Z2's: " + savedZTwos;
-    document.getElementById("savedZThrees").innerHTML = "Previous Z3's: " + savedZThrees;
+    $("#savedZOnes").text(savedZOnes);
+    $("#savedZTwos").text(savedZTwos);
+    $("#savedZThrees").text(savedZThrees);
 }
 
 function displayDeltaZValues() {
-    document.getElementById("deltaZOne").innerHTML = "Delta Z1: " + (savedZOnes[savedZOnes.length-1] - savedZOnes[savedZOnes.length - 2]);
-    document.getElementById("deltaZTwo").innerHTML = "Delta Z2: " + (savedZTwos[savedZTwos.length-1] - savedZTwos[savedZOnes.length - 2]);
-    document.getElementById("deltaZThree").innerHTML = "Delta Z3: " + (savedZThrees[savedZThrees.length-1] - savedZThrees[savedZOnes.length - 2]);
+    $("#deltaZOne").text((savedZOnes[savedZOnes.length - 1] - savedZOnes[savedZOnes.length - 2]));
+    $("#deltaZTwo").text((savedZTwos[savedZTwos.length - 1] - savedZTwos[savedZOnes.length - 2]));
+    $("#deltaZThree").text((savedZThrees[savedZThrees.length - 1] - savedZThrees[savedZOnes.length - 2]));
 }
 
 
 function displayTurnsResults(rollAngleResult, pitchAngleResult) {
-    document.getElementById("body-output").style.visibility = "visible";
+    $("#body-output").show();
     var rearRightTurnsResult = rollAngleResult / STEP_SIZE;
     if (rearRightTurnsResult > 0)
-        document.getElementById("lblRearRightTurnsResult").innerHTML = rearRightTurnsResult.toFixed(1) + " CCW";
+        $("#lblRearRightTurnsResult").text(rearRightTurnsResult.toFixed(1) + " CCW");
     else
-        document.getElementById("lblRearRightTurnsResult").innerHTML = rearRightTurnsResult.toFixed(1) + " CW";
+        $("#lblRearRightTurnsResult").text(rearRightTurnsResult.toFixed(1) + " CW");
 
     var frontLeftTurnsResult = pitchAngleResult / STEP_SIZE;
     if (frontLeftTurnsResult > 0)
-        document.getElementById("lblFrontLeftTurnsResult").innerHTML = frontLeftTurnsResult.toFixed(1) + " CCW";
+        $("#lblFrontLeftTurnsResult").text(frontLeftTurnsResult.toFixed(1) + " CCW");
     else
-        document.getElementById("lblFrontLeftTurnsResult").innerHTML = frontLeftTurnsResult.toFixed(1) + " CW";
+        $("#lblFrontLeftTurnsResult").text(frontLeftTurnsResult.toFixed(1) + " CW");
 }
-
-
 function validateInput(inputName) {
     var input = document.forms["mp3Form"][inputName].value;
     if (input === null || input === "" || isNaN(input)) {
@@ -75,4 +94,14 @@ function validateInput(inputName) {
         input = parseFloat(input);
     }
     return input;
+}
+
+function clearSavedValues(){
+  savedZOnes=[];
+  savedZTwos=[];
+  savedZThrees=[];
+  localStorage.setItem("zOnes", savedZOnes);
+  localStorage.setItem("zTwos", savedZTwos);
+  localStorage.setItem("zThrees", savedZThrees);
+  displaySavedZValues();
 }
