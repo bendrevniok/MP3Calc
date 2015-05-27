@@ -1,15 +1,17 @@
 body {
-    width: 95%;
-    margin-left: auto;
-    margin-right: auto;
     font-family: Arial, Helvetica, sans-serif;
 }
+#wrapper{
+    width:95%;
+    margin-left: auto;
+    margin-right: auto;
+}
 #banner {
-    width: 100%;
     border-bottom: 1px solid red;
     margin-bottom: 20px;
     overflow: hidden;
 }
+
 #header {
     width: 80%;
     float: left;
@@ -23,31 +25,50 @@ body {
 #logo {
     float: right;
 }
-#body-input {
-    float: left;
-    width: 30%;
-    margin-right: 20px;
+#body-input{
+    margin-bottom:10px;
 }
-#body-input th {
-    text-align: right
+.input-table-data tr th{
+   text-align: right; 
 }
 #body-output {
-    float: left;
-    overflow: auto;
-    width: 60%;
+    display: none;   
+}
+.output-header{
+    margin-bottom: 0px;
+    font-weight:bold;
+}
+.output-data{
+    margin-top:0px;
+}
+#body-output-left{
+    width:200px;
+}
+#body-output-middle{
+    width:500px;
+}
+#body-output-right{
+    width:200px;
+}
+.body-output-content{
+    border: 1px solid black;
+    margin-right: 20px;
+    float:left;
+    padding-left:5px;
+    padding-bottom: 5px;
 }
 .btn {
     background-color: crimson;
-    -webkit-border-radius: 5;
-    -moz-border-radius: 5;
-    border-radius: 5px;
+    -webkit-border-radius: 1;
+    -moz-border-radius: 1;
+    border-radius: 1px;
     font-family: Arial;
     color: #ffffff;
-    font-size: 20px;
+    font-size: 16px;
     padding: 5px;
     text-decoration: none;
     border: none;
-    margin-top: 10px;
+    margin: 0px;
 }
 .btn:hover {
     background-color: darkred;
@@ -56,11 +77,4 @@ body {
 .btn:focus {
     outline: none;
 }
-.turnsHeader {
-    text-align: left
-}
-.turnsData {
-    text-align: center;
-    font-size: 1.4em;
-    padding: 5px;
-}
+
