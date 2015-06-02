@@ -2,10 +2,24 @@ var errorMessage;
 var savedZOnes = [];
 var savedZTwos = [];
 var savedZThrees = [];
+var STEP_SIZE = 0.02;
 
-function calculateResult() {
-    //step size in degrees per division
-    var stepSize = 0.02;
+function checkData() {
+    if (typeof (Storage) !== "undefined") {
+        if (localStorage.getItem("zOnes") != null
+            && localStorage.getItem("zTwos") != null
+            && localStorage.getItem("zThrees") != null) {
+            savedZOnes= JSON.parse(localStorage["zOnes"]);
+            savedZTwos= JSON.parse(localStorage["zTwos"]);
+            savedZThrees= JSON.parse(localStorage["zThrees"]);
+            displaySavedZValues();
+        }
+    } else {
+        console.log("ERROR - Browser does not support local web storage.")
+    }
+}
+
+function submitData() {
     errorMessage = "";
     var length = validateInput("Length");
     var width = validateInput("Width");
@@ -16,42 +30,62 @@ function calculateResult() {
     if (errorMessage == "") {
         savedZOnes.push(zOne);
         savedZTwos.push(zTwo);
-        savedZThrees.push(zThree)
-
-        var rollAngleResult = Math.atan((zTwo - zOne) / width) * (180.0 / Math.PI);
-        document.getElementById("lblRollAngleResult").innerHTML = rollAngleResult.toFixed(2);
-
-        var pitchAngleResult = Math.atan((zThree - zOne) / length) * (180.0 / Math.PI);
-        document.getElementById("lblPitchAngleResult").innerHTML = pitchAngleResult.toFixed(2);
-
-        var rearRightTurnsResult = rollAngleResult / stepSize;
-        if (rearRightTurnsResult > 0) {
-            document.getElementById("lblRearRightTurnsResult").innerHTML = rearRightTurnsResult.toFixed(1) + " CCW";
-        } else {
-            document.getElementById("lblRearRightTurnsResult").innerHTML = rearRightTurnsResult.toFixed(1) + " CW";
-        }
-        //rear right turns
-
-        var frontLeftTurnsResult = pitchAngleResult / stepSize;
-        if (frontLeftTurnsResult > 0) {
-            document.getElementById("lblFrontLeftTurnsResult").innerHTML = frontLeftTurnsResult.toFixed(1) + " CCW";
-        } else {
-            document.getElementById("lblFrontLeftTurnsResult").innerHTML = frontLeftTurnsResult.toFixed(1) + " CW";
-        }
-        //front left turns
-        
+        savedZThrees.push(zThree);
+        var rollAngleResult = calculateRollAngle(zOne, zTwo, width);
+        var pitchAngleResult = calculatePitchAngle(zOne, zThree, length);
+        displayTurnsResults(rollAngleResult, pitchAngleResult);
         displaySavedZValues();
+        storeData(savedZOnes, savedZTwos, savedZThrees);
+        if (savedZOnes.length >= 2) {
+            displayDeltaZValues();
+        }
     } else {
         alert(errorMessage);
     }
 }
 
-function displaySavedZValues(){
-    document.getElementById("savedZOnes").innerHTML="Previous Z1's: " + savedZOnes;
-    document.getElementById("savedZTwos").innerHTML="Previous Z2's: "+savedZTwos;
-    document.getElementById("savedZThrees").innerHTML="Previous Z3's: "+savedZThrees;
+function storeData(zOnes, zTwos, zThrees) {
+    localStorage["zOnes"] =  JSON.stringify(zOnes);
+    localStorage["zTwos"] = JSON.stringify(zTwos);
+    localStorage["zThrees"] = JSON.stringify(zThrees);
+
 }
 
+function calculateRollAngle(zOne, zTwo, width) {
+    return Math.atan((zTwo - zOne) / width) * (180.0 / Math.PI);
+}
+
+function calculatePitchAngle(zOne, zThree, length) {
+    return Math.atan((zThree - zOne) / length) * (180.0 / Math.PI);
+}
+
+function displaySavedZValues() {
+    $("#savedZOnes").text(savedZOnes);
+    $("#savedZTwos").text(savedZTwos);
+    $("#savedZThrees").text(savedZThrees);
+}
+
+function displayDeltaZValues() {
+    $("#deltaZOne").text((savedZOnes[savedZOnes.length - 1] - savedZOnes[savedZOnes.length - 2]));
+    $("#deltaZTwo").text((savedZTwos[savedZTwos.length - 1] - savedZTwos[savedZOnes.length - 2]));
+    $("#deltaZThree").text((savedZThrees[savedZThrees.length - 1] - savedZThrees[savedZOnes.length - 2]));
+}
+
+
+function displayTurnsResults(rollAngleResult, pitchAngleResult) {
+    $("#body-output").show();
+    var rearRightTurnsResult = rollAngleResult / STEP_SIZE;
+    if (rearRightTurnsResult > 0)
+        $("#lblRearRightTurnsResult").text(rearRightTurnsResult.toFixed(1) + " CCW");
+    else
+        $("#lblRearRightTurnsResult").text(rearRightTurnsResult.toFixed(1) + " CW");
+
+    var frontLeftTurnsResult = pitchAngleResult / STEP_SIZE;
+    if (frontLeftTurnsResult > 0)
+        $("#lblFrontLeftTurnsResult").text(frontLeftTurnsResult.toFixed(1) + " CCW");
+    else
+        $("#lblFrontLeftTurnsResult").text(frontLeftTurnsResult.toFixed(1) + " CW");
+}
 function validateInput(inputName) {
     var input = document.forms["mp3Form"][inputName].value;
     if (input === null || input === "" || isNaN(input)) {
@@ -62,20 +96,12 @@ function validateInput(inputName) {
     return input;
 }
 
-/*
-Stuff to add: 
-if turns result are  postive specify they are counter clockwise
-else if they are negative specify they are clockwise
-
-keep the last five zone, two, and zthree in memory for reference
-store them in object
-
-delta zone, ztwo, zthree that would represent the difference between the last inputted zone and the current zone
-save values even if browser is closed with a session or cookies or whatever
-possibly write saved z values to a text file, csv file
-
-theta is roll angle, theta turns is rear right
-phi is pitch angle, phi turns is front left
-
-if zTwo and zOne positive number it should come out as positive result
-*/
+function clearSavedValues(){
+  savedZOnes=[];
+  savedZTwos=[];
+  savedZThrees=[];
+  localStorage.setItem("zOnes", savedZOnes);
+  localStorage.setItem("zTwos", savedZTwos);
+  localStorage.setItem("zThrees", savedZThrees);
+  displaySavedZValues();
+}

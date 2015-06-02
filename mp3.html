@@ -1,5 +1,6 @@
 <!doctype html>
 <html>
+<<<<<<< HEAD
 
 <head>
     <script type="application/javascript" src="mp3.js"></script>
@@ -16,104 +17,95 @@
             </div>
             <div id="logo">
                 <img src="logo.png" alt="The logo" width="100" />
+=======
+    
+    <head>
+        <script type="application/javascript" src="mp3.js"></script>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="mp3.css">
+        <meta charset="UTF-8">
+        <title>MP3Calc</title>
+    </head>
+    
+    <body onload="checkData()">
+        <div id="wrapper">
+            <div id="banner">
+                <div id="header">
+                    <h1>MultiPrep Parallel Polishing Calculator [MP3Calc]</h1>
+                </div>
+                <div id="logo">
+                    <img src="chipworks_logo.png" alt="The Chipworks logo" width="100" />
+                </div>
+>>>>>>> origin/master
             </div>
-        </div>
-        <div id="body">
             <div id="body-input">
                 <form name="mp3Form">
-                    <table>
+                    <table class="input-table-data">
                         <tr>
-                            <th class="body-input-header">
-                                <label>Length:</label>
-                            </th>
+                            <th>Length:</th>
                             <td>
-                                <input type="text" id="txtLength" name="Length" maxlength="20"/>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <th class="body-input-header">
-                                <label>Width:</label>
-                            </th>
-                            <td>
-                                <input type="input" id="txtWidth" name="Width" maxlength="20" />
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <th class="body-input-header">
-                                <label>Z<sub>1</sub>:</label>
-                            </th>
-                            <td>
-                                <input type="input" id="txtZOne" name="Z1" maxlength="20" />
+                                <input type="input" id="txtLength" name="Length" />
                             </td>
                         </tr>
                         <tr>
-                            <th class="body-input-header">
-                                <label>Z<sub>2</sub>:</label>
-                            </th>
+                            <th>Width:</th>
                             <td>
-                                <input type="input" id="txtZTwo" name="Z2" maxlength="20" />
+                                <input type="input" id="txtWidth" name="Width" />
                             </td>
                         </tr>
                         <tr>
-                            <th class="body-input-header">
-                                <label>Z<sub>3</sub>:</label>
-                            </th>
+                            <th>Z1:</th>
                             <td>
-                                <input type="input" id="txtZThree" name="Z3" required/>
+                                <input type="input" id="txtZOne" name="Z1" />
                             </td>
                         </tr>
                         <tr>
-                            <td></td>
+                            <th>Z2:</th>
                             <td>
-                                <input class="btn" id="btnSubmit" type="button" value="Calculate" onclick="calculateResult()" />
+                                <input type="input" id="txtZTwo" name="Z2" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Z3:</th>
+                            <td>
+                                <input type="input" id="txtZThree" name="Z3" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <th></th>
+                            <td>
+                                <input class="btn" id="btnSubmit" type="button" value="Calculate" onclick="submitData()" />
                             </td>
                         </tr>
                     </table>
                 </form>
-                <div id="body-saved-input">
-                    <p id="savedZOnes"></p>
-                    <p id="savedZTwos"></p>
-                    <p id="savedZThrees"></p>
-                </div>
             </div>
             <div id="body-output">
-                <table>
-                    <tr>
-                        <th colspan="2">
-                            Rear right turns
-                        </th>
-                        <th colspan="2">
-                            Front left turns
-                        </th>
-                    </tr><tr>
-                        <td class="turnsData" colspan="2">
-                            <label  id="lblRearRightTurnsResult"></label>
-                        </td>
-                        <td class="turnsData" colspan="2">
-                            <label  id="lblFrontLeftTurnsResult"></label>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>
-                            Roll angle:
-                        </th>
-                        <td>
-                            <label id="lblRollAngleResult"></label>
-                        </td>
-                        <th>
-                            Pitch angle:
-                        </th>
-                        <td>
-                            <label id="lblPitchAngleResult"></label>
-                        </td>
-                      </tr>
-                   
-                </table>
+                <div class="body-output-content" id="body-output-left">
+                    <p class="output-header">Rear right turns:</p>
+                    <p class="output-data" id="lblRearRightTurnsResult"></p>
+                    <p class="output-header">Front left turns:</p>
+                    <p class="output-data" id="lblFrontLeftTurnsResult"></p>
+                </div>
+                <div class="body-output-content" id="body-output-middle">
+                    <p class="output-header">Saved Z1's:</p>
+                    <p class="output-data" id="savedZOnes"></p>
+                    <p class="output-header">Saved Z2's</p>
+                    <p class="output-data" id="savedZTwos"></p>
+                    <p class="output-header">Saved Z3's</p>
+                    <p class="output-data" id="savedZThrees"></p>
+                    <input class="btn" id="btnClearSavedValues" type="button" value="Clear Saved Values" onclick="clearSavedValues()"></input>
+                </div>
+                <div class="body-output-content" id="body-output-right">
+                    <p class="output-header">Delta Z1:</p>
+                    <p class="output-data" id="deltaZOne"></p>
+                    <p class="output-header">Delta Z2:</p>
+                    <p class="output-data" id="deltaZTwo"></p>
+                    <p class="output-header">Delta Z3:</p>
+                    <p class="output-data" id="deltaZThree"></p>
+                </div>
             </div>
         </div>
-    </div>
-</body>
+    </body>
 
 </html>
