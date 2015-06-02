@@ -76,15 +76,15 @@ function displayTurnsResults(rollAngleResult, pitchAngleResult) {
     $("#body-output").show();
     var rearRightTurnsResult = rollAngleResult / STEP_SIZE;
     if (rearRightTurnsResult > 0)
-        $("#lblRearRightTurnsResult").text(rearRightTurnsResult.toFixed(1) + " CCW");
+        $("#lblRearRightTurnsResult").text(Math.abs(rearRightTurnsResult).toFixed(1) + " CW");
     else
-        $("#lblRearRightTurnsResult").text(rearRightTurnsResult.toFixed(1) + " CW");
+        $("#lblRearRightTurnsResult").text(Math.abs(rearRightTurnsResult).toFixed(1) + " CCW");
 
     var frontLeftTurnsResult = pitchAngleResult / STEP_SIZE;
     if (frontLeftTurnsResult > 0)
-        $("#lblFrontLeftTurnsResult").text(frontLeftTurnsResult.toFixed(1) + " CCW");
+        $("#lblFrontLeftTurnsResult").text(Math.abs(frontLeftTurnsResult).toFixed(1) + " CCW");
     else
-        $("#lblFrontLeftTurnsResult").text(frontLeftTurnsResult.toFixed(1) + " CW");
+        $("#lblFrontLeftTurnsResult").text(Math.abs(frontLeftTurnsResult).toFixed(1) + " CW");
 }
 function validateInput(inputName) {
     var input = document.forms["mp3Form"][inputName].value;
